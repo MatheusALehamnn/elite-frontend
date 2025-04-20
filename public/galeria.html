@@ -29,11 +29,11 @@
         const card = document.createElement('div');
         card.className = 'card';
         card.innerHTML = `
-          <img src="${acomp.foto}" alt="Foto de ${acomp.nome}">
-          <h3>${acomp.nome}, ${acomp.idade}</h3>
-          <p><strong>Local:</strong> ${acomp.local}</p>
-          <p><strong>Serviços:</strong> ${acomp.servicos || 'N/A'}</p>
-          <p><strong>Sobre:</strong> ${acomp.descricao || 'N/A'}</p>
+          <img src="\${acomp.foto}" alt="Foto de \${acomp.nome}">
+          <h3>\${acomp.nome}, \${acomp.idade}</h3>
+          <p><strong>Local:</strong> \${acomp.local}</p>
+          <p><strong>Serviços:</strong> \${acomp.servicos || 'N/A'}</p>
+          <p><strong>Sobre:</strong> \${acomp.descricao || 'N/A'}</p>
           <button class="favoritar">⭐ Favoritar</button>
         `;
         galeria.appendChild(card);

@@ -16,12 +16,12 @@ if (!folder) {
 console.log(`✅ Servindo arquivos da pasta: ${folder}`);
 app.use(express.static(path.join(__dirname, folder)));
 
-app.get('/api/ping', (req, res) => {
-  res.send('pong');
-});
-
 app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, folder, "index.html"));
+});
+
+app.get('/api/ping', (req, res) => {
+  res.send('pong');
 });
 
 const PORT = process.env.PORT || 3000;
