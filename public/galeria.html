@@ -1,1 +1,54 @@
-<!DOCTYPE html><html lang='pt-BR'><head><meta charset='UTF-8'><meta name='viewport' content='width=device-width, initial-scale=1.0'><title>Galeria</title><link rel='stylesheet' href='style.css'></head><body><nav><a href='index.html'>Início</a><a href='login.html'>Login</a><a href='cadastro.html'>Cadastro</a><a href='galeria.html'>Galeria</a><a href='admin.html'>Admin</a></nav><main><h2>Galeria de Acompanhantes</h2><p>Perfis em destaque serão exibidos aqui.</p></main></body></html>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Galeria - Elite Acompanhantes</title>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+  <nav>
+    <a href="index.html">Início</a>
+    <a href="login.html">Login</a>
+    <a href="cadastro.html">Cadastro</a>
+    <a href="galeria.html">Galeria</a>
+    <a href="admin.html">Admin</a>
+  </nav>
+  <main>
+    <h2>Galeria de Acompanhantes</h2>
+    <input type="text" id="filtroCidade" placeholder="Filtrar por cidade" />
+    <section id="galeriaContainer"></section>
+  </main>
+  <script>
+    async function carregarAcompanhantes() {
+      const res = await fetch('/api/acompanhantes');
+      const dados = await res.json();
+      const galeria = document.getElementById('galeriaContainer');
+      galeria.innerHTML = '';
+      dados.forEach(acomp => {
+        const card = document.createElement('div');
+        card.className = 'card';
+        card.innerHTML = `
+          <img src="${acomp.foto}" alt="Foto de ${acomp.nome}">
+          <h3>${acomp.nome}, ${acomp.idade}</h3>
+          <p><strong>Local:</strong> ${acomp.local}</p>
+          <p><strong>Serviços:</strong> ${acomp.servicos || 'N/A'}</p>
+          <p><strong>Sobre:</strong> ${acomp.descricao || 'N/A'}</p>
+          <button class="favoritar">⭐ Favoritar</button>
+        `;
+        galeria.appendChild(card);
+      });
+    }
+
+    document.getElementById('filtroCidade').addEventListener('input', (e) => {
+      const cidade = e.target.value.toLowerCase();
+      document.querySelectorAll('.card').forEach(card => {
+        const local = card.innerText.toLowerCase();
+        card.style.display = local.includes(cidade) ? 'block' : 'none';
+      });
+    });
+
+    carregarAcompanhantes();
+  </script>
+</body>
+</html>
