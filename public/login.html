@@ -1,1 +1,56 @@
-<!DOCTYPE html><html lang='pt-BR'><head><meta charset='UTF-8'><meta name='viewport' content='width=device-width, initial-scale=1.0'><title>Login</title><link rel='stylesheet' href='style.css'></head><body><nav><a href='index.html'>Início</a><a href='login.html'>Login</a><a href='cadastro.html'>Cadastro</a><a href='galeria.html'>Galeria</a><a href='admin.html'>Admin</a></nav><main><h2>Login</h2><form><input type='text' placeholder='Usuário'><input type='password' placeholder='Senha'><bu...
+<!DOCTYPE html>
+<html lang='pt-BR'>
+<head>
+  <meta charset='UTF-8'>
+  <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+  <title>Login</title>
+  <link rel='stylesheet' href='style.css'>
+</head>
+<body>
+  <nav>
+    <a href='index.html'>Início</a>
+    <a href='login.html'>Login</a>
+    <a href='cadastro.html'>Cadastro</a>
+    <a href='galeria.html'>Galeria</a>
+    <a href='admin.html'>Admin</a>
+  </nav>
+  <main>
+    <h2>Login</h2>
+    <form id="loginForm">
+      <input type='text' id="usuario" placeholder='Usuário' required>
+      <input type='password' id="senha" placeholder='Senha' required>
+      <button type='submit'>Entrar</button>
+      <p id="mensagemErro" style="color: red;"></p>
+    </form>
+  </main>
+  <script>
+    const form = document.getElementById('loginForm');
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const usuario = document.getElementById('usuario').value;
+      const senha = document.getElementById('senha').value;
+
+      try {
+        const resposta = await fetch('https://elite-backend1-production.up.railway.app/api/login', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ usuario, senha })
+        });
+
+        const data = await resposta.json();
+
+        if (resposta.ok) {
+          localStorage.setItem('token', data.token);
+          window.location.href = 'admin.html';
+        } else {
+          document.getElementById('mensagemErro').innerText = data.erro || 'Erro ao fazer login.';
+        }
+      } catch (erro) {
+        document.getElementById('mensagemErro').innerText = 'Erro de conexão com o servidor.';
+      }
+    });
+  </script>
+</body>
+</html>
