@@ -17,7 +17,7 @@ console.log(`✅ Servindo arquivos da pasta: ${folder}`);
 app.use(express.static(path.join(__dirname, folder)));
 
 app.get('/api/ping', (req, res) => {
-  res.json({ status: 'ok' });
+  res.send('pong');
 });
 
 app.get("*", (req, res) => {
