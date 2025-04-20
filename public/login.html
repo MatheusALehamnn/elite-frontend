@@ -43,7 +43,7 @@
 
         if (resposta.ok) {
           localStorage.setItem('token', data.token);
-          window.location.href = 'admin.html';
+          window.location.href = 'galeria.html';
         } else {
           document.getElementById('mensagemErro').innerText = data.erro || 'Erro ao fazer login.';
         }
