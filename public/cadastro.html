@@ -42,7 +42,7 @@
       const foto = document.getElementById('foto').value;
 
       try {
-        const resposta = await fetch('https://elite-backend1-production.up.railway.app/api/cadastrar', {
+        const resposta = await fetch('/api/cadastrar', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
