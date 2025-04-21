@@ -36,7 +36,7 @@
           headers: {
             'Content-Type': 'application/json'
           },
-          body: JSON.stringify({ usuario, senha })
+          body: JSON.stringify({ email: usuario, senha })
         });
 
         const data = await resposta.json();
